@@ -1,6 +1,6 @@
 # Overview
 
-This software provides a Python implementation of the mechanistic mass transfer calculations and model described by Nguyen et al. (2026) for hollow fiber membrane solvent extraction of isobutanol. The package includes two Excel macro-enabled templates that provide user interfaces for experimental $K_{ov}$ calculation and model-predicted $K_{ov}$ estimation, as well as a Python-based modeling workflow for model building, parameter fitting, model evaluation, and diagnostics. 
+This software provides a Python implementation of the mechanistic mass transfer calculations and model described by Nguyen et al. (2026) for hollow fiber membrane solvent extraction of isobutanol. The package includes two Excel macro-enabled templates that provide user interfaces for experimental mass transfer calculation and model-predicted mass transfer estimation, as well as a Python-based modeling workflow for model building, parameter fitting, model evaluation, and diagnostics. 
 
 This software is intended for researchers, students, technicians, and engineers working in membrane separations, mass transfer, solvent extraction, and related chemical engineering applications. The software is suitable for users with a basic understanding of Python and Microsoft Excel who wish to analyze experimental data and apply the provided mass transfer model to different operating conditions.
 
