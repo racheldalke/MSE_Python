@@ -40,10 +40,10 @@ def main():
 
         data_table["driving_force_gm3"] = m * data_table["conc_bulk_aq_gm3"].to_numpy() - data_table["conc_bulk_org_gm3"].to_numpy()
 
-        data_table["conc_bulk_org_gg"] = data_table["conc_bulk_org_gm3"] / (797.222 * 1000)
-        data_table["conc_bulk_aq_gg"] = data_table["conc_bulk_aq_gm3"] / (998 * 1000)
+        data_table["conc_bulk_org_gg"] = data_table["conc_bulk_org_gm3"] / (rho_organic * 1000)
+        data_table["conc_bulk_aq_gg"] = data_table["conc_bulk_aq_gm3"] / (rho_aqueous * 1000)
 
-        data_table["system_mass_g"] = data_table["system_vol_mL"] * (797.222 / 1000) # g
+        data_table["system_mass_g"] = data_table["system_vol_mL"] * (rho_organic / 1000) # g
 
         t = data_table["time_hr"].to_numpy()
         conc_bulk_org_arr = data_table["conc_bulk_org_gg"].to_numpy()
@@ -113,10 +113,10 @@ def main():
         ax[0].plot(t, conc_bulk_org_arr, "o-", label="phi=20%")
         ax[0].set_xlabel("Time (h)")
         ax[0].set_ylabel("Concentration in organic phase (g/g)")
-        ax[0].set_ylim(0, 0.0125)
-        ax[0].set_yticks(np.arange(0, 0.0125 + 0.0025, 0.0025))
+        # ax[0].set_ylim(0, 0.0125)
+        # ax[0].set_yticks(np.arange(0, 0.0125 + 0.0025, 0.0025))
         ax[0].legend(loc="upper left")
-        ax[0].grid(axis="y", linestyle="-", color="lightgray", alpha=0.7)
+        ax[0].grid(axis="y", linestyle="-", color="lightgray", alpha=0.7, zorder=0)
 
         # fit
         ax[1].plot(
@@ -128,22 +128,28 @@ def main():
         ax[1].scatter(t, conc_bulk_org_arr, label="exp. data")
         ax[1].set_xlabel("Time (h)")
         ax[1].set_ylabel("Concentration in organic phase (g/g)")
-        ax[1].set_ylim(0, 0.0125)
-        ax[1].set_yticks(np.arange(0, 0.0125 + 0.0025, 0.0025))
+        # ax[1].set_ylim(0, 0.0125)
+        # ax[1].set_yticks(np.arange(0, 0.0125 + 0.0025, 0.0025))
         ax[1].legend(loc="upper left")
-        ax[1].grid(axis="y", linestyle="-", color="lightgray", alpha=0.7)
+        ax[1].grid(axis="y", linestyle="-", color="lightgray", alpha=0.7, zorder=0)
 
         # ---------------------------
         # save plot
         # ---------------------------
 
         plt.tight_layout()
+        
+        plt.subplots_adjust(wspace=0.3)
+
+        for a in ax:
+            a.relim()
+            a.autoscale_view(scalex=False, scaley=True)
+
         plt.savefig(output_path, dpi=300)
+
         plt.close()
 
         wb.save() # wb.close()
-
-        print("DONE")
 
 # ---------------------------
 # error logging wrapper
@@ -152,12 +158,14 @@ def main():
 if __name__ == "__main__":
     try:
         main()
+        print("Finished successfully.")
+
     except Exception as e:
 
         # fallback if workbook_path missing
         workbook_path = sys.argv[1] if len(sys.argv) > 1 else ""
         workbook_dir = os.path.dirname(workbook_path) if workbook_path else os.getcwd()
-        error_path = os.path.join(workbook_dir, "kov_error.txt")
+        error_path = os.path.join(workbook_dir, "kov_exp_error.txt")
 
         with open(error_path, "w") as f:
             import traceback

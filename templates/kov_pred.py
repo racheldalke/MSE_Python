@@ -108,8 +108,6 @@ def main():
 
     wb.save()
 
-    print("DONE")
-
 # ---------------------------
 # error logging wrapper
 # ---------------------------
@@ -117,17 +115,18 @@ def main():
 if __name__ == "__main__":
     try:
         main()
+        print("Finished successfully.")
     
     except Exception as e:
     
         workbook_path = sys.argv[1] if len(sys.argv) > 1 else ""
         workbook_dir = os.path.dirname(workbook_path) if workbook_path else os.getcwd()
-        error_path = os.path.join(workbook_dir, "kov_mod_error.txt")
+        error_path = os.path.join(workbook_dir, "kov_pred_error.txt")
     
         with open(error_path, "w") as f:
             import traceback
             f.write("ERROR:\n")
             f.write(str(e) + "\n\n")
             f.write(traceback.format_exc())
-    
+        
         raise

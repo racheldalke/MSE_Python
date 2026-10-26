@@ -10,9 +10,9 @@ See the Program Manual for installation instructions and module information.
 
 ## Dependencies
 
-- Python, Microsoft Excel, Jupyter Notebook
-- NumPy, Pandas, SciPy
-- xlwings
+- Python, Microsoft Excel
+- A Python environment that supports .ipynb notebooks (e.g., Jupyter Notebook, JupyterLab, Spyder)
+- NumPy, Pandas, SciPy, xlwings, Matplotlib 
 
 ## Reference
 
